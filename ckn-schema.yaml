@@ -1725,36 +1725,6 @@ classes:
             - predicate
             - object
 
-    GeneMolecularlyInteractsWithGene:
-        description: >-
-            A relationship between a gene and a second gene that it modifies the activity
-            of.
-        is_a: Association
-        slot_usage:
-            subject:
-                name: subject
-                description: >-
-                    A region (or regions) that includes all of the sequence elements necessary to
-                    encode a functional transcript. A gene may include regulatory regions,
-                    transcribed regions and/or other functional sequence regions.
-                range: Gene
-            predicate:
-                name: predicate
-                description: >-
-                    An interaction relationship in which the two partners are molecular entities that directly physically interact with each other for example via a stable binding interaction or a brief interaction during which one modifies the other.
-                subproperty_of: molecularly_interacts_with
-            object:
-                name: object
-                description: >-
-                    A region (or regions) that includes all of the sequence elements necessary to
-                    encode a functional transcript. A gene may include regulatory regions,
-                    transcribed regions and/or other functional sequence regions.
-                range: Gene
-        defining_slots:
-            - subject
-            - predicate
-            - object
-
     CellSetExactMatchCellSet:
         description: >-
             A relationship between two cell sets that are both instances of the same cell
