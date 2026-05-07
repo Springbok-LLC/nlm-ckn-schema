@@ -1887,89 +1887,6 @@ linkml_meta = LinkMLMeta({'classes': {'AnatomicalStructure': {'class_uri': 'UBER
                                                                                                 'role.',
                                                                                  'name': 'subject',
                                                                                  'range': 'Drug'}}},
-                 'DrugMolecularlyInteractsWithGene': {'defining_slots': ['subject',
-                                                                         'predicate',
-                                                                         'object'],
-                                                      'description': 'A '
-                                                                     'relationship '
-                                                                     'between a '
-                                                                     'drug and '
-                                                                     'some gene '
-                                                                     'whose gene '
-                                                                     'products '
-                                                                     'directly '
-                                                                     'interact '
-                                                                     'with the '
-                                                                     'drug. This '
-                                                                     'is a '
-                                                                     'symmetric '
-                                                                     'relationship.',
-                                                      'from_schema': 'https://w3id.org/nlm-ckn-schema',
-                                                      'is_a': 'Association',
-                                                      'name': 'DrugMolecularlyInteractsWithGene',
-                                                      'slot_usage': {'object': {'description': 'A '
-                                                                                               'region '
-                                                                                               '(or '
-                                                                                               'regions) '
-                                                                                               'that '
-                                                                                               'includes '
-                                                                                               'all '
-                                                                                               'of '
-                                                                                               'the '
-                                                                                               'sequence '
-                                                                                               'elements '
-                                                                                               'necessary '
-                                                                                               'to '
-                                                                                               'encode '
-                                                                                               'a '
-                                                                                               'functional '
-                                                                                               'transcript. '
-                                                                                               'A '
-                                                                                               'gene '
-                                                                                               'may '
-                                                                                               'include '
-                                                                                               'regulatory '
-                                                                                               'regions, '
-                                                                                               'transcribed '
-                                                                                               'regions '
-                                                                                               'and/or '
-                                                                                               'other '
-                                                                                               'functional '
-                                                                                               'sequence '
-                                                                                               'regions.',
-                                                                                'name': 'object',
-                                                                                'range': 'Gene'},
-                                                                     'predicate': {'description': 'Symmetric '
-                                                                                                  'relation '
-                                                                                                  'between '
-                                                                                                  'two '
-                                                                                                  'molecular '
-                                                                                                  'entities '
-                                                                                                  'that '
-                                                                                                  'directly '
-                                                                                                  'bind '
-                                                                                                  'or '
-                                                                                                  'modify '
-                                                                                                  'the '
-                                                                                                  'behavior '
-                                                                                                  'of '
-                                                                                                  'the '
-                                                                                                  'other.',
-                                                                                   'name': 'predicate',
-                                                                                   'subproperty_of': 'molecularly_interacts_with'},
-                                                                     'subject': {'description': 'A '
-                                                                                                'drug '
-                                                                                                'product '
-                                                                                                'that '
-                                                                                                'is '
-                                                                                                'bearer '
-                                                                                                'of '
-                                                                                                'a '
-                                                                                                'clinical '
-                                                                                                'drug '
-                                                                                                'role.',
-                                                                                 'name': 'subject',
-                                                                                 'range': 'Drug'}}},
                  'DrugMolecularlyInteractsWithProtein': {'defining_slots': ['subject',
                                                                             'predicate',
                                                                             'object'],
@@ -7618,65 +7535,6 @@ class DrugEvaluatedInClinicalTrial(Association):
          'range': 'ClinicalTrial'} })
 
 
-class DrugMolecularlyInteractsWithGene(Association):
-    """
-    A relationship between a drug and some gene whose gene products directly interact with the drug. This is a symmetric relationship.
-    """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'defining_slots': ['subject', 'predicate', 'object'],
-         'description': 'A relationship between a drug and some gene whose gene '
-                        'products directly interact with the drug. This is a symmetric '
-                        'relationship.',
-         'from_schema': 'https://w3id.org/nlm-ckn-schema',
-         'is_a': 'Association',
-         'name': 'DrugMolecularlyInteractsWithGene',
-         'slot_usage': {'object': {'description': 'A region (or regions) that includes '
-                                                  'all of the sequence elements '
-                                                  'necessary to encode a functional '
-                                                  'transcript. A gene may include '
-                                                  'regulatory regions, transcribed '
-                                                  'regions and/or other functional '
-                                                  'sequence regions.',
-                                   'name': 'object',
-                                   'range': 'Gene'},
-                        'predicate': {'description': 'Symmetric relation between two '
-                                                     'molecular entities that directly '
-                                                     'bind or modify the behavior of '
-                                                     'the other.',
-                                      'name': 'predicate',
-                                      'subproperty_of': 'molecularly_interacts_with'},
-                        'subject': {'description': 'A drug product that is bearer of a '
-                                                   'clinical drug role.',
-                                    'name': 'subject',
-                                    'range': 'Drug'}}})
-
-    subject: Optional[Drug] = Field(default=None, description="""A drug product that is bearer of a clinical drug role.""", json_schema_extra = { "linkml_meta": {'alias': 'subject',
-         'description': 'A drug product that is bearer of a clinical drug role.',
-         'domain_of': ['Association'],
-         'from_schema': 'https://w3id.org/nlm-ckn-schema',
-         'name': 'subject',
-         'owner': 'DrugMolecularlyInteractsWithGene',
-         'range': 'Drug'} })
-    predicate: Optional[str] = Field(default=None, description="""Symmetric relation between two molecular entities that directly bind or modify the behavior of the other.""", json_schema_extra = { "linkml_meta": {'alias': 'predicate',
-         'description': 'Symmetric relation between two molecular entities that '
-                        'directly bind or modify the behavior of the other.',
-         'domain_of': ['Association'],
-         'from_schema': 'https://w3id.org/nlm-ckn-schema',
-         'name': 'predicate',
-         'owner': 'DrugMolecularlyInteractsWithGene',
-         'range': 'uriorcurie',
-         'subproperty_of': 'molecularly_interacts_with'} })
-    object: Optional[Gene] = Field(default=None, description="""A region (or regions) that includes all of the sequence elements necessary to encode a functional transcript. A gene may include regulatory regions, transcribed regions and/or other functional sequence regions.""", json_schema_extra = { "linkml_meta": {'alias': 'object',
-         'description': 'A region (or regions) that includes all of the sequence '
-                        'elements necessary to encode a functional transcript. A gene '
-                        'may include regulatory regions, transcribed regions and/or '
-                        'other functional sequence regions.',
-         'domain_of': ['Association'],
-         'from_schema': 'https://w3id.org/nlm-ckn-schema',
-         'name': 'object',
-         'owner': 'DrugMolecularlyInteractsWithGene',
-         'range': 'Gene'} })
-
-
 class GeneMolecularlyInteractsWithGene(Association):
     """
     A relationship between a gene and a second gene that it modifies the activity of.
@@ -8286,7 +8144,6 @@ CellSetHasCharacterizingMarkerSetBiomarkerCombination.model_rebuild()
 CellSetDatasetWasAttributedToPublication.model_rebuild()
 CellSetComposedPrimarilyOfCellType.model_rebuild()
 DrugEvaluatedInClinicalTrial.model_rebuild()
-DrugMolecularlyInteractsWithGene.model_rebuild()
 GeneMolecularlyInteractsWithGene.model_rebuild()
 CellSetExactMatchCellSet.model_rebuild()
 BiomarkerCombinationSubclusterOfBinaryGeneSet.model_rebuild()

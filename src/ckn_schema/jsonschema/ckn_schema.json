@@ -1546,43 +1546,6 @@
             "title": "DrugIsSubstanceThatTreatsDisease",
             "type": "object"
         },
-        "DrugMolecularlyInteractsWithGene": {
-            "additionalProperties": false,
-            "description": "A relationship between a drug and some gene whose gene products directly interact with the drug. This is a symmetric relationship.",
-            "properties": {
-                "object": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/Gene"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "A region (or regions) that includes all of the sequence elements necessary to encode a functional transcript. A gene may include regulatory regions, transcribed regions and/or other functional sequence regions."
-                },
-                "predicate": {
-                    "description": "Symmetric relation between two molecular entities that directly bind or modify the behavior of the other.",
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "subject": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/$defs/Drug"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "A drug product that is bearer of a clinical drug role."
-                }
-            },
-            "title": "DrugMolecularlyInteractsWithGene",
-            "type": "object"
-        },
         "DrugMolecularlyInteractsWithProtein": {
             "additionalProperties": false,
             "description": "A relationship between a drug and a protein that it directly interacts with via binding or some modification to either.",

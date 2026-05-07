@@ -1751,34 +1751,6 @@ classes:
             - predicate
             - object
 
-    DrugMolecularlyInteractsWithGene:
-        description: >-
-            A relationship between a drug and some gene whose gene products directly
-            interact with the drug. This is a symmetric relationship.
-        is_a: Association
-        slot_usage:
-            subject:
-                name: subject
-                description: A drug product that is bearer of a clinical drug role.
-                range: Drug
-            predicate:
-                name: predicate
-                description: >-
-                    Symmetric relation between two molecular entities that directly bind or modify
-                    the behavior of the other.
-                subproperty_of: molecularly_interacts_with
-            object:
-                name: object
-                description: >-
-                    A region (or regions) that includes all of the sequence elements necessary to
-                    encode a functional transcript. A gene may include regulatory regions,
-                    transcribed regions and/or other functional sequence regions.
-                range: Gene
-        defining_slots:
-            - subject
-            - predicate
-            - object
-
     GeneMolecularlyInteractsWithGene:
         description: >-
             A relationship between a gene and a second gene that it modifies the activity
