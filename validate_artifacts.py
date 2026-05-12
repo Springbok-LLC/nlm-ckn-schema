@@ -10,7 +10,6 @@ errors = []
 try:
     sys.path.insert(0, "src")
     import ckn_schema.pydantic.ckn_schema  # noqa: F401
-
     print("pydantic: ok")
 except Exception as e:
     errors.append(f"pydantic: {e}")

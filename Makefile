@@ -1,7 +1,7 @@
 SCHEMA := ckn-schema.yaml
 SRC    := src/ckn_schema
 
-.PHONY: all clean copy-schema gen-pydantic gen-shacl gen-json-schema
+.PHONY: all clean copy-schema gen-pydantic gen-shacl gen-json-schema validate
 
 all: copy-schema gen-pydantic gen-shacl gen-json-schema
 
@@ -19,6 +19,9 @@ gen-shacl: copy-schema
 gen-json-schema: copy-schema
 	uv run gen-json-schema $(SCHEMA) > $(SRC)/jsonschema/ckn_schema.json.tmp
 	mv $(SRC)/jsonschema/ckn_schema.json.tmp $(SRC)/jsonschema/ckn_schema.json
+
+validate: all
+	uv run python validate_artifacts.py
 
 clean:
 	rm -f $(SRC)/schema/ckn_schema.yaml

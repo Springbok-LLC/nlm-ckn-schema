@@ -18,8 +18,5 @@ jobs:
       - name: Install dependencies
         run: uv sync --extra dev
 
-      - name: Run Makefile
-        run: make
-
-      - name: Validate generated artifacts
-        run: uv run python validate_artifacts.py
+      - name: Generate and validate artifacts
+        run: make validate
