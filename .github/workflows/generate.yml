@@ -21,9 +21,5 @@ jobs:
       - name: Run Makefile
         run: make
 
-      - name: Verify generated artifacts
-        run: |
-          test -f src/ckn_schema/schema/ckn_schema.yaml
-          test -f src/ckn_schema/pydantic/ckn_schema.py
-          test -f src/ckn_schema/shacl/ckn_schema.shacl.ttl
-          test -f src/ckn_schema/jsonschema/ckn_schema.json
+      - name: Validate generated artifacts
+        run: uv run python validate_artifacts.py
