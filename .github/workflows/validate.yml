@@ -1,4 +1,4 @@
-name: Generate Artifacts
+name: Validate Artifacts
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - "**"
 
 jobs:
-  generate:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
