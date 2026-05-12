@@ -9,13 +9,13 @@ copy-schema:
 	cp $(SCHEMA) $(SRC)/schema/ckn_schema.yaml
 
 gen-pydantic: copy-schema
-	gen-pydantic --meta full $(SCHEMA) > $(SRC)/pydantic/ckn_schema.py
+	uv run gen-pydantic --meta full $(SCHEMA) > $(SRC)/pydantic/ckn_schema.py
 
 gen-shacl: copy-schema
-	gen-shacl $(SCHEMA) > $(SRC)/shacl/ckn_schema.shacl.ttl
+	uv run gen-shacl $(SCHEMA) > $(SRC)/shacl/ckn_schema.shacl.ttl
 
 gen-json-schema: copy-schema
-	gen-json-schema $(SCHEMA) > $(SRC)/jsonschema/ckn_schema.json
+	uv run gen-json-schema $(SCHEMA) > $(SRC)/jsonschema/ckn_schema.json
 
 clean:
 	rm -f $(SRC)/schema/ckn_schema.yaml

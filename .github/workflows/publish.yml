@@ -18,6 +18,14 @@ jobs:
         with:
           python-version: "3.11"
 
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Install dependencies
+        run: uv sync --extra dev
+
+      - name: Generate artifacts
+        run: make
+
       - name: Build package
         run: |
           pip install build hatch-vcs
