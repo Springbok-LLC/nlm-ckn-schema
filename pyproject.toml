@@ -25,9 +25,18 @@ source = "vcs"
 [tool.hatch.publish.index.repos.github-publish]
 url = "https://upload.pkg.github.com/orgs/NIH-NLM/packages/pypi/ckn-schema/"
 
+[tool.hatch.build.targets.sdist]
+artifacts = [
+  "src/ckn_schema/pydantic/ckn_schema.py",
+  "src/ckn_schema/schema/ckn_schema.yaml",
+  "src/ckn_schema/shacl/ckn_schema.shacl.ttl",
+  "src/ckn_schema/jsonschema/ckn_schema.json",
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/ckn_schema"]
 artifacts = [
+  "src/ckn_schema/pydantic/ckn_schema.py",
   "src/ckn_schema/schema/ckn_schema.yaml",
   "src/ckn_schema/shacl/ckn_schema.shacl.ttl",
   "src/ckn_schema/jsonschema/ckn_schema.json",
