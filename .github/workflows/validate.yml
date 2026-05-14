@@ -1,0 +1,20 @@
+name: Validate Artifacts
+
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Install dependencies
+        run: uv sync --extra dev
+
+      - name: Generate and validate artifacts
+        run: make validate
