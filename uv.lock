@@ -289,14 +289,19 @@ dependencies = [
 
 [package.optional-dependencies]
 dev = [
+    { name = "jsonschema", version = "4.25.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
+    { name = "jsonschema", version = "4.26.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
     { name = "linkml", version = "1.9.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "linkml", version = "1.10.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "rdflib" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "jsonschema", marker = "extra == 'dev'" },
     { name = "linkml", marker = "extra == 'dev'", specifier = ">=1.8,<2" },
     { name = "linkml-runtime", specifier = ">=1.9,<2" },
+    { name = "rdflib", marker = "extra == 'dev'" },
 ]
 provides-extras = ["dev"]
 
