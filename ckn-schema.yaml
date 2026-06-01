@@ -4,37 +4,35 @@ id: https://w3id.org/nlm-ckn-schema
 
 imports:
     - linkml:types
+    - biolink:biolink-model
 
 prefixes:
     linkml: https://w3id.org/linkml/
+    biolink: https://w3id.org/biolink/vocab/
     nlm-ckn: https://w3id.org/nlm-ckn-schema
     xsd: http://www.w3.org/2001/XMLSchema#
-    CL: https://purl.obolibrary.org/obo/CL_
-    SO: https://purl.obolibrary.org/obo/SO_
-    UBERON: https://purl.obolibrary.org/obo/UBERON_
-    DRON: https://purl.obolibrary.org/obo/DRON_
-    NCBITaxon: https://purl.obolibrary.org/obo/NCBITaxon_
-    OBI: https://purl.obolibrary.org/obo/OBI_
-    PATO: https://purl.obolibrary.org/obo/PATO_
-    IAO: https://purl.obolibrary.org/obo/IAO_
-    GO: https://purl.obolibrary.org/obo/GO_
-    CHEBI: https://purl.obolibrary.org/obo/CHEBI_
-    MONDO: https://purl.obolibrary.org/obo/MONDO_
-    PR: https://purl.obolibrary.org/obo/PR_
-    HP: https://purl.obolibrary.org/obo/HP_
-    HsapDv: https://purl.obolibrary.org/obo/HsapDv_
-    OPMI: https://purl.obolibrary.org/obo/OPMI_
+    CL: http://purl.obolibrary.org/obo/CL_
+    SO: http://purl.obolibrary.org/obo/SO_
+    UBERON: http://purl.obolibrary.org/obo/UBERON_
+    DRON: http://purl.obolibrary.org/obo/DRON_
+    NCBITaxon: http://purl.obolibrary.org/obo/NCBITaxon_
+    OBI: http://purl.obolibrary.org/obo/OBI_
+    PATO: http://purl.obolibrary.org/obo/PATO_
+    IAO: http://purl.obolibrary.org/obo/IAO_
+    GO: http://purl.obolibrary.org/obo/GO_
+    CHEBI: http://purl.obolibrary.org/obo/CHEBI_
+    MONDO: http://purl.obolibrary.org/obo/MONDO_
+    PR: http://purl.obolibrary.org/obo/PR_
+    HP: http://purl.obolibrary.org/obo/HP_
     rdfs: http://www.w3.org/2000/01/rdf-schema#
     obo: http://www.geneontology.org/formats/oboInOwl#
     foaf: http://xmlns.com/foaf/0.1/
-    RO: https://purl.obolibrary.org/obo/RO_
-    BFO: https://purl.obolibrary.org/obo/BFO_
-    SKOS: http://www.w3.org/2004/02/skos/core#
-    dc: http://purl.org/dc/elements/1.1/
-    STATO: https://purl.obolibrary.org/obo/STATO_
-    PROV: http://www.w3.org/ns/prov#
+    RO: http://purl.obolibrary.org/obo/RO_
+    STATO: http://purl.obolibrary.org/obo/STATO_
+    prov: http://www.w3.org/ns/prov#
 
 default_prefix: nlm-ckn
+default_range: string
 
 types:
 
@@ -205,7 +203,7 @@ slots:
             - value: NCT00494511
         range: string
 
-    version:
+    ckn_version:
         description: >-
             An information content entity which is a sequence of characters borne by part of
             each of a class of manufactured products or its packaging and indicates its
@@ -217,7 +215,7 @@ slots:
 
     dataset_collection_version:
         description: The version number for a data set collection.
-        is_a: version
+        is_a: ckn_version
         examples:
             - value: 2fd47593-5bcb-4b07-878f-263ad03f2206
         range: string
@@ -395,18 +393,6 @@ slots:
         description: A score indicating the level of annotation for a protein.
         range: integer
 
-    subject:
-        description: The subject of a triple.
-        range: string
-
-    predicate:
-        description: The predicate of a triple.
-        range: uriorcurie
-
-    object:
-        description: The object of a triple.
-        range: string
-
     silhouette_score:
         description: >-
             A measure of clustering quality that quantifies how similar an object is to its
@@ -566,6 +552,10 @@ slots:
     ###############################################################################################################
     #####################################              Relations              #####################################
     ###############################################################################################################
+    #
+    # Predicates that have a Biolink equivalent are referenced directly from the triple
+    # classes below (slot_usage.predicate.subproperty_of: <biolink predicate>). Only the
+    # relations Biolink lacks are defined locally here, retaining their OBO/PROV mappings.
 
     subcluster_of:
         description: >-
@@ -574,35 +564,6 @@ slots:
         exact_mappings:
             - RO:0015003
 
-    part_of:
-        description: A core relation that holds between a part and its whole.
-        exact_mappings:
-            - BFO:0000050
-
-    has_phenotype:
-        description: A relationship that holds between a biological entity and a phenotype.
-        exact_mappings:
-            - RO:0002200
-
-    member_of:
-        description: A mereological relation between a item and a collection.
-        exact_mappings:
-            - RO:0002350
-
-    derives_from:
-        description: >-
-            A relation between two distinct material entities, the new entity and the old
-            entity, in which the new entity begins to exist when the old entity ceases to
-            exist, and the new entity inherits the significant portion of the matter of the
-            old entity.
-        exact_mappings:
-            - RO:0001000
-
-    has_part:
-        description: A core relation that holds between a whole and its part.
-        exact_mappings:
-            - BFO:0000051
-
     has_exemplar_data:
         description: >-
             A relation between a material entity and some data in which the data is taken as
@@ -610,244 +571,32 @@ slots:
         exact_mappings:
             - RO:0015001
 
-    is_about:
-        description: A primitive relation that relates an information artifact to an entity.
-        exact_mappings:
-            - IAO:0000136
-
-    interacts_with:
-        description: >-
-            A relationship that holds between two entities in which the processes executed
-            by the two entities are causally connected.
-        exact_mappings:
-            - RO:0002434
-
-    involved_in:
-        description: c involved_in p if and only if c enables some process p', and p' is part of p
-        exact_mappings:
-            - RO:0002331
-
-    develops_from:
-        description: >-
-            x develops from y if and only if either (a) x directly develops from y or (b)
-            there exists some z such that x directly develops from z and z develops from y.
-        exact_mappings:
-            - RO:0002202
-
-    capable_of:
-        description: >-
-            A relation between a material entity (such as a cell) and a process, in which
-            the material entity has the ability to carry out the process.
-        exact_mappings:
-            - RO:0002215
-
-    has_characterizing_marker_set:
-        description: >-
-            A relation that applies between a cell type and a set of markers that can be
-            used to uniquely identify that cell type.
-        exact_mappings:
-            - RO:0015004
-
-    is_characterizing_marker_set_for:
-        description: >-
-            A relation that applies between a set of markers and a cell type that can be
-            used to uniquely identify that cell type.
-        # Placeholder
-        exact_mappings:
-            - RO:0015005
-
     evaluated_in:
         description: A relation between a drug and some clinical trial it was tested in.
         # Placeholder
         exact_mappings:
             - RO:0020325
 
-    regulates_level_of:
-        description: p regulates levels of c if p regulates some amount of c.
-        exact_mappings:
-            - RO:0002332
-
-    produces:
-        description: >-
-            a produces b if some process that occurs_in a has_output b, where a and b are
-            material entities.
-        exact_mappings:
-            - RO:0003000
-
-    located_in:
-        description: >-
-            A relation between two independent continuants, the target and the location, in
-            which the target is entirely within the location.
-        exact_mappings:
-            - RO:0001025
-
-    is_genetic_basis_for_condition:
-        description: >-
-            A relation between a gene and a disease or disorder in which it is a causal
-            input to.
-        exact_mappings:
-            - RO:0004010
-
-    molecularly_interacts_with:
-        description: >-
-            An interaction relationship in which the two partners are molecular entities
-            that directly physically interact with each other for example via a stable
-            binding interaction or a brief interaction during which one modifies the other.
-        exact_mappings:
-            - RO:0002436
-
-    is_substance_that_treats:
-        description: >-
-            c is a substance that treats d if c is a material entity (such as a small
-            molecule or compound) and d is a pathological process, phenotype or disease, and
-            c is capable of some activity that negative regulates or decreases the magnitude
-            of d.
-        exact_mappings:
-            - RO:0002606
-
-    expresses:
-        description: >-
-            y expresses x if and only if there is a gene expression process that occurs in
-            y, and one of the following holds: (i) x is a gene, and x is transcribed into a
-            transcript as part of the gene expression process (ii) x is a transcript, and x
-            was transcribed from a gene as part of the gene expression process (iii) x is a
-            mature gene product (protein or RNA), and x was translated or otherwise
-            processed from a transcript that was transcribed as part of the gene expression
-            process.
-        exact_mappings:
-            - RO:0002292
-
-    selectively_expresses:
-        description: >-
-            A relation between a cell type and a gene such that the gene is transcribed
-            at a significantly higher level in that cell type relative to other cell types,
-            and can be used as a marker for the cell type.
-        is_a: expresses
-        # Placeholder — RO_0002294 does not exist in RO; using as a project-local term
-        exact_mappings:
-            - RO:0002294
-
-    has_pharmacological_effect:
-        description: >-
-            A relation between a material entity and a drug such that the material entity
-            changes some effect of the drug.
-        # Placeholder
-        exact_mappings:
-            - RO:0002027
-
-    has_plasma_membrane_part:
-        description: >-
-            Holds between a cell c and a protein complex or protein p if and only if that
-            cell has as part a plasma_membrane[GO:0005886], and that plasma membrane has p
-            as part.
-        exact_mappings:
-            - RO:0002104
-
-    lacks_plasma_membrane_part:
-        description: >-
-            A relation that asserts the lack of a presence of some cellular component in a
-            cell's plasma membrane.
-        exact_mappings:
-            - CL:4030046
-
-    has_disease:
-        description: A relationship that holds between an organism and a disease.
-        exact_mappings:
-            - RO:0016002
-
-    is_marker_for:
-        description: >-
-            c is marker for d iff the presence or occurrence of d is correlated with the
-            presence of occurrence of c, and the observation of c is used to infer the
-            presence or occurrence of d. Note that this does not imply that c and d are in a
-            direct causal relationship, as it may be the case that there is a third entity e
-            that stands in a direct causal relationship with c and d.
-        exact_mappings:
-            - RO:0002607
-
-    disease_has_location:
-        description: >-
-            A relationship between a disease and an anatomical entity where the disease has
-            one or more features that are located in that entity.
-        exact_mappings:
-            - RO:0004026
-
-    composed_primarily_of:
-        description: >-
-            x composed_primarily_of y if and only if more than half of the mass of x is made
-            from y or units of the same type as y.
-        exact_mappings:
-            - RO:0002473
-
-    present_in_taxon:
-        description: S present_in_taxon T if some instance of T has some S.
-        exact_mappings:
-            - RO:0002175
-
-    expressed_in:
-        description: >-
-            x expressed in y if and only if there is a gene expression process (gene
-            expression) that occurs in y, and one of the following holds: (i) x is a gene,
-            and x is transcribed into a transcript as part of the gene expression process
-            (ii) x is a transcript, and the transcription of x is part of the gene
-            expression process (iii) x is a mature gene product such as a protein, and x was
-            translated or otherwise processes from a transcript that was transcribed as part
-            of this gene expression process.
-        exact_mappings:
-            - RO:0002206
-
-    genetically_interacts_with:
-        description: >-
-            Symmetric relation between two genetic entities that interact at the genetic
-            level.
-        exact_mappings:
-            - RO:0002435
-
-    caused_by_disruption_of:
-        description: >-
-            A relation between a disease and a material biological entity that has been
-            altered.
-        # Placeholder
-        exact_mappings:
-            - RO:0004037
-
-    exact_match:
-        description: A mapping relation between two entities that are of the same type.
-        exact_mappings:
-            - SKOS:exactMatch
-
-    subclass_of:
-        description: A relation between a more specific class and a more general class.
-        # Placeholder
-        exact_mappings:
-            - rdfs:subClassOf
-
-    has_quality:
-        description: >-
-            A relation between an entity and a quality inhering in it.
-        exact_mappings:
-            - RO:0000086
-
     was_attributed_to:
         description: Attribution is the ascribing of an entity to an agent.
         exact_mappings:
-            - PROV:wasAttributedTo
+            - prov:wasAttributedTo
 
 classes:
 
-    Association:
+    CknAssociation:
         description: >-
             A typed association between two entities, linked by a predicate.
-        slots:
-            - subject
-            - predicate
-            - object
+            Extends the Biolink association; subject, predicate, and object are
+            inherited from it.
+        is_a: association
         defining_slots:
             - subject
             - predicate
             - object
   
-    CellSet:
+    CknCellSet:
+        is_a: biological entity
         description: A collection of cells that have some common property.
         slots:
             - author_cell_term
@@ -886,7 +635,8 @@ classes:
             ontology_purl:
                 pattern: "CL:[0-9]{7}"
   
-    CellType:
+    CknCellType:
+        is_a: cell
         description: >-
             A material entity of anatomical origin (part of or deriving from an organism)
             that has as its parts a maximally connected cell compartment surrounded by a
@@ -904,7 +654,8 @@ classes:
             ontology_purl:
                 pattern: "CL:[0-9]{7}"
   
-    Gene:
+    CknGene:
+        is_a: gene
         description: >-
             A region (or regions) that includes all of the sequence elements necessary to
             encode a functional transcript. A gene may include regulatory regions,
@@ -927,7 +678,8 @@ classes:
             gene_symbol:
                 required: true
   
-    Drug:
+    CknDrug:
+        is_a: drug
         description: A drug product that is bearer of a clinical drug role.
         class_uri: DRON:00000005
         aliases:
@@ -943,7 +695,8 @@ classes:
             - approval_status
             - drug_type
 
-    AnatomicalStructure:
+    CknAnatomicalStructure:
+        is_a: gross anatomical structure
         description: >-
             Material anatomical entity that is a single connected structure with inherent 3D
             shape generated by coordinated expression of the organism's own genome.
@@ -955,7 +708,8 @@ classes:
             - database_cross_reference
             - organ_dataset_summary
 
-    Taxon:
+    CknTaxon:
+        is_a: organism taxon
         description: The taxonomical classification of an organism.
         class_uri: NCBITaxon:131567
         aliases:
@@ -965,13 +719,14 @@ classes:
             - label
             - database_cross_reference
 
-    CellSetDataset:
+    CknCellSetDataset:
+        is_a: dataset
         description: A dataset that is about cells taken from one or more tissue samples.
         slots:
             - dataset_name
             - dataset_identifier
             - species
-            - version
+            - ckn_version
             - dataset_identifier
             - dataset_collection_version
             - publication
@@ -997,7 +752,8 @@ classes:
             - assay_summary
             - cluster_summary
 
-    Publication:
+    CknPublication:
+        is_a: publication
         description: A document that is the output of a publishing process.
         class_uri: IAO:0000311
         slots:
@@ -1007,7 +763,8 @@ classes:
             - publication_doi
             - journal
 
-    BiomarkerCombination:
+    CknBiomarkerCombination:
+        is_a: molecular entity
         description: >-
             A cell type marker gene is a gene that is selectively expressed in cells of a
             given type and can be reliably used alone or in combination as a canonical
@@ -1017,7 +774,8 @@ classes:
             - markers
             - f_beta_score
 
-    Protein:
+    CknProtein:
+        is_a: protein
         description: >-
             An amino acid chain that is canonically produced de novo by ribosome-mediated
             translation of a genetically-encoded mRNA, and any derivatives thereof.
@@ -1035,7 +793,8 @@ classes:
             gene_symbol:
                 required: true
 
-    Disease:
+    CknDisease:
+        is_a: disease
         description: >-
             A disease is a disposition to undergo pathological processes that exists in an
             organism because of one or more disorders in that organism.
@@ -1048,19 +807,22 @@ classes:
             - related_synonym
             - database_cross_reference
 
-    BinaryGeneSet:
+    CknBinaryGeneSet:
+        is_a: nucleic acid entity
         description: A collection of discontinuous sequences.
         class_uri: SO:0001260
         slots:
             - markers
 
-    ClinicalTrial:
+    CknClinicalTrial:
+        is_a: clinical trial
         description: A clinical investigation that involves an intervention.
         class_uri: OBI:0003699
         slots:
             - study_id
 
-    BiologicalProcess:
+    CknBiologicalProcess:
+        is_a: biological process
         description: >-
             A biological process is the execution of a genetically-encoded biological module
             or program. It consists of all the steps required to achieve the specific
@@ -1074,7 +836,8 @@ classes:
             - label
             - definition
 
-    CellularComponent:
+    CknCellularComponent:
+        is_a: cellular component
         description: >-
             A location, relative to cellular compartments and structures, occupied by a
             macromolecular machine. There are three types of cellular components described
@@ -1089,7 +852,8 @@ classes:
             - label
             - definition
 
-    MolecularFunction:
+    CknMolecularFunction:
+        is_a: molecular activity
         description: >-
             A molecular process that can be carried out by the action of a single
             macromolecular machine, usually via direct physical interactions with other
@@ -1101,7 +865,8 @@ classes:
             - label
             - definition
 
-    LifeCycleStage:
+    CknLifeCycleStage:
+        is_a: life stage
         description: A spatiotemporal region encompassing some part of the life cycle of an organism.
         class_uri: UBERON:0000105
         slots:
@@ -1109,7 +874,8 @@ classes:
             - label
             - definition
 
-    ChemicalEntity:
+    CknChemicalEntity:
+        is_a: chemical entity
         description: >-
             A chemical entity is a physical entity of interest in chemistry including
             molecular entities, parts thereof, and chemical substances.
@@ -1121,7 +887,8 @@ classes:
             - label
             - definition
 
-    OrganismTrait:
+    CknOrganismTrait:
+        is_a: phenotypic feature
         description: >-
             A dependent entity that inheres in a bearer by virtue of how the bearer is
             related to other entities.
@@ -1133,7 +900,8 @@ classes:
             - label
             - definition
 
-    Mutation:
+    CknMutation:
+        is_a: sequence variant
         description: >-
             A sequence_alteration is a sequence_feature whose extent is the deviation from
             another sequence.
@@ -1155,24 +923,24 @@ classes:
         description: >-
             A relationship between an anatomical structure and another anatomical structure
             it is part of.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: >-
                     Material anatomical entity that is a single connected structure with inherent 3D
                     shape generated by coordinated expression of the organism's own genome.
-                range: AnatomicalStructure
+                range: CknAnatomicalStructure
             predicate:
                 name: predicate
                 description: A relation between a part and some whole entity.
-                subproperty_of: part_of
+                subproperty_of: part of
             object:
                 name: object
                 description: >-
                     Material anatomical entity that is a single connected structure with inherent 3D
                     shape generated by coordinated expression of the organism's own genome.
-                range: AnatomicalStructure
+                range: CknAnatomicalStructure
         defining_slots:
             - subject
             - predicate
@@ -1180,7 +948,7 @@ classes:
 
     CellTypeInteractsWithCellType:
         description: A relationship between two cell types that are causally connected.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
@@ -1188,20 +956,20 @@ classes:
                     A material entity of anatomical origin (part of or deriving from an organism)
                     that has as its parts a maximally connected cell compartment surrounded by a
                     plasma membrane.
-                range: CellType
+                range: CknCellType
             predicate:
                 name: predicate
                 description: >-
                     Symmetric relation between two entities that directly bind or modify the
                     behavior of the other.
-                subproperty_of: interacts_with
+                subproperty_of: interacts with
             object:
                 name: object
                 description: >-
                     A material entity of anatomical origin (part of or deriving from an organism)
                     that has as its parts a maximally connected cell compartment surrounded by a
                     plasma membrane.
-                range: CellType
+                range: CknCellType
         defining_slots:
             - subject
             - predicate
@@ -1211,7 +979,7 @@ classes:
         description: >-
             A relationship between a cell type and another cell type it directly or
             indirectly develops from.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
@@ -1219,20 +987,20 @@ classes:
                     A material entity of anatomical origin (part of or deriving from an organism)
                     that has as its parts a maximally connected cell compartment surrounded by a
                     plasma membrane.
-                range: CellType
+                range: CknCellType
             predicate:
                 name: predicate
                 description: >-
                     Relation between entities x and y and some process p where x is the input to p
                     and y is the output of p and x is directly involved in the creation of y.
-                subproperty_of: develops_from
+                subproperty_of: develops from
             object:
                 name: object
                 description: >-
                     A material entity of anatomical origin (part of or deriving from an organism)
                     that has as its parts a maximally connected cell compartment surrounded by a
                     plasma membrane.
-                range: CellType
+                range: CknCellType
         defining_slots:
             - subject
             - predicate
@@ -1242,7 +1010,7 @@ classes:
         description: >-
             A relationship between a cell type whose instances are also instances of another
             cell type.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
@@ -1250,18 +1018,18 @@ classes:
                     A material entity of anatomical origin (part of or deriving from an organism)
                     that has as its parts a maximally connected cell compartment surrounded by a
                     plasma membrane.
-                range: CellType
+                range: CknCellType
             predicate:
                 name: predicate
                 description: Relation between x and y where all instances of y are instances of x.
-                subproperty_of: subclass_of
+                subproperty_of: subclass of
             object:
                 name: object
                 description: >-
                     A material entity of anatomical origin (part of or deriving from an organism)
                     that has as its parts a maximally connected cell compartment surrounded by a
                     plasma membrane.
-                range: CellType
+                range: CknCellType
         defining_slots:
             - subject
             - predicate
@@ -1271,7 +1039,7 @@ classes:
         description: >-
             A relationship between a cell type and a protein that is part of its plasma
             membrane.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
@@ -1279,19 +1047,19 @@ classes:
                     A material entity of anatomical origin (part of or deriving from an organism)
                     that has as its parts a maximally connected cell compartment surrounded by a
                     plasma membrane.
-                range: CellType
+                range: CknCellType
             predicate:
                 name: predicate
                 description: >-
                     A relation between a cell c and a protein complex or protein p that is part of
                     the cell's plasma membrane.
-                subproperty_of: has_plasma_membrane_part
+                subproperty_of: has plasma membrane part
             object:
                 name: object
                 description: >-
                     An amino acid chain that is canonically produced de novo by ribosome-mediated
                     translation of a genetically-encoded mRNA, and any derivatives thereof
-                range: Protein
+                range: CknProtein
         defining_slots:
             - subject
             - predicate
@@ -1301,7 +1069,7 @@ classes:
         description: >-
             A relationship between a cell type and a protein that is not part of its plasma
             membrane but is part of the plasma membrane of related cell types.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
@@ -1309,19 +1077,19 @@ classes:
                     A material entity of anatomical origin (part of or deriving from an organism)
                     that has as its parts a maximally connected cell compartment surrounded by a
                     plasma membrane.
-                range: CellType
+                range: CknCellType
             predicate:
                 name: predicate
                 description: >-
                     A relation that asserts the lack of a presence of some cellular component in a
                     cell's plasma membrane.
-                subproperty_of: lacks_plasma_membrane_part
+                subproperty_of: lacks part  # biolink has no plasma-membrane-specific lack
             object:
                 name: object
                 description: >-
                     An amino acid chain that is canonically produced de novo by ribosome-mediated
                     translation of a genetically-encoded mRNA, and any derivatives thereof
-                range: Protein
+                range: CknProtein
         defining_slots:
             - subject
             - predicate
@@ -1329,25 +1097,25 @@ classes:
 
     ProteinPartOfCellType:
         description: A relationship between a protein and a cell type that it is part of.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: >-
                     An amino acid chain that is canonically produced de novo by ribosome-mediated
                     translation of a genetically-encoded mRNA, and any derivatives thereof
-                range: Protein
+                range: CknProtein
             predicate:
                 name: predicate
                 description: A relation between a part and some whole entity.
-                subproperty_of: part_of
+                subproperty_of: part of
             object:
                 name: object
                 description: >-
                     A material entity of anatomical origin (part of or deriving from an organism)
                     that has as its parts a maximally connected cell compartment surrounded by a
                     plasma membrane.
-                range: CellType
+                range: CknCellType
         defining_slots:
             - subject
             - predicate
@@ -1357,7 +1125,7 @@ classes:
         description: >-
             A relationship between a gene that is the input to a transcription process and
             the protein that is the output.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
@@ -1365,19 +1133,19 @@ classes:
                     A region (or regions) that includes all of the sequence elements necessary to
                     encode a functional transcript. A gene may include regulatory regions,
                     transcribed regions and/or other functional sequence regions.
-                range: Gene
+                range: CknGene
             predicate:
                 name: predicate
                 description: >-
                     A relation between two material entities wherein some process that occurs in a
                     has output b.
-                subproperty_of: produces
+                subproperty_of: produces  # biolink
             object:
                 name: object
                 description: >-
                     An amino acid chain that is canonically produced de novo by ribosome-mediated
                     translation of a genetically-encoded mRNA, and any derivatives thereof
-                range: Protein
+                range: CknProtein
         defining_slots:
             - subject
             - predicate
@@ -1385,7 +1153,7 @@ classes:
 
     GeneIsGeneticBasisForDisease:
         description: A relationship between a gene and a disease it predisposes an organism to.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
@@ -1393,19 +1161,19 @@ classes:
                     A region (or regions) that includes all of the sequence elements necessary to
                     encode a functional transcript. A gene may include regulatory regions,
                     transcribed regions and/or other functional sequence regions.
-                range: Gene
+                range: CknGene
             predicate:
                 name: predicate
                 description: >-
                     A relation between a gene and a disease or disorder in which it is a causal
                     input to.
-                subproperty_of: is_genetic_basis_for_condition
+                subproperty_of: gene associated with condition
             object:
                 name: object
                 description: >-
                     A disposition to undergo pathological processes that exists in an organism
                     because of one or more disorders in that organism.
-                range: Disease
+                range: CknDisease
         defining_slots:
             - subject
             - predicate
@@ -1413,7 +1181,7 @@ classes:
 
     GeneHasQualityMutation:
         description: A relationship between a gene and some alteration to its nucleic acid sequence.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
@@ -1421,19 +1189,19 @@ classes:
                     A region (or regions) that includes all of the sequence elements necessary to
                     encode a functional transcript. A gene may include regulatory regions,
                     transcribed regions and/or other functional sequence regions.
-                range: Gene
+                range: CknGene
             predicate:
                 name: predicate
                 description: >-
                     A relation between an independent continuant and a quality that specifically
                     dependends on the independent continuant.
-                subproperty_of: has_quality
+                subproperty_of: has sequence variant
             object:
                 name: object
                 description: >-
                     A sequence_alteration is a sequence_feature whose extent is the deviation from
                     another sequence.
-                range: Mutation
+                range: CknMutation
         defining_slots:
             - subject
             - predicate
@@ -1443,24 +1211,24 @@ classes:
         description: >-
             A relationship between a mutation and a drug such that the nucleic acid sequence
             alteration changes some effect of the drug.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: >-
                     A sequence_alteration is a sequence_feature whose extent is the deviation from
                     another sequence.
-                range: Mutation
+                range: CknMutation
             predicate:
                 name: predicate
                 description: >-
                     A relation between a material entity and a drug such that the material entity
                     changes some effect of the drug.
-                subproperty_of: has_pharmacological_effect
+                subproperty_of: affects  # broad; no precise biolink match
             object:
                 name: object
                 description: A drug product that is bearer of a clinical drug role.
-                range: Drug
+                range: CknDrug
         defining_slots:
             - subject
             - predicate
@@ -1470,24 +1238,24 @@ classes:
         description: >-
             A relationship between a drug and a protein that it directly interacts with via
             binding or some modification to either.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: A drug product that is bearer of a clinical drug role.
-                range: Drug
+                range: CknDrug
             predicate:
                 name: predicate
                 description: >-
                     Symmetric relation between two molecular entities that directly bind or modify
                     the behavior of the other.
-                subproperty_of: molecularly_interacts_with
+                subproperty_of: directly physically interacts with  # biolink lacks 'molecularly interacts with'
             object:
                 name: object
                 description: >-
                     An amino acid chain that is canonically produced de novo by ribosome-mediated
                     translation of a genetically-encoded mRNA, and any derivatives thereof
-                range: Protein
+                range: CknProtein
         defining_slots:
             - subject
             - predicate
@@ -1497,24 +1265,24 @@ classes:
         description: >-
             A relationship between a drug and a disease that it has been shown in a phase
             III clinical trial to be safe and effective at treating.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: A drug product that is bearer of a clinical drug role.
-                range: Drug
+                range: CknDrug
             predicate:
                 name: predicate
                 description: >-
                     A relation between a material entity and some condition, pathological process,
                     disease, or phenotype that it treats.
-                subproperty_of: is_substance_that_treats
+                subproperty_of: treats
             object:
                 name: object
                 description: >-
                     A disposition to undergo pathological processes that exists in an organism
                     because of one or more disorders in that organism.
-                range: Disease
+                range: CknDisease
         defining_slots:
             - subject
             - predicate
@@ -1524,7 +1292,7 @@ classes:
         description: >-
             A relationship between a cell type and a dataset in which some of the data
             exemplify the cell type.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
@@ -1532,7 +1300,7 @@ classes:
                     A material entity of anatomical origin (part of or deriving from an organism)
                     that has as its parts a maximally connected cell compartment surrounded by a
                     plasma membrane.
-                range: CellType
+                range: CknCellType
             predicate:
                 name: predicate
                 description: >-
@@ -1542,7 +1310,7 @@ classes:
             object:
                 name: object
                 description: A dataset that is about cells taken from one or more tissue samples.
-                range: CellSetDataset
+                range: CknCellSetDataset
         defining_slots:
             - subject
             - predicate
@@ -1552,25 +1320,25 @@ classes:
         description: >-
             A relationship between a cell set and an anatomical structure it was extracted
             from for analysis.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: A collection of cells that have some common property.
-                range: CellSet
+                range: CknCellSet
             predicate:
                 name: predicate
                 description: >-
                     A relation between two material entities, the new entity and the old entity, in
                     which the new entity begins to exist when the old entity ceases to exist, and
                     the new entity inherits the significant portion of the matter of the old entity
-                subproperty_of: derives_from
+                subproperty_of: derives from
             object:
                 name: object
                 description: >-
                     Material anatomical entity that is a single connected structure with inherent 3D
                     shape generated by coordinated expression of the organism's own genome.
-                range: AnatomicalStructure
+                range: CknAnatomicalStructure
         defining_slots:
             - subject
             - predicate
@@ -1578,20 +1346,20 @@ classes:
 
     CellSetMemberOfCellSetDataset:
         description: A relationship between a cell set and the dataset that contains data about it.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: A collection of cells that have some common property.
-                range: CellSet
+                range: CknCellSet
             predicate:
                 name: predicate
                 description: A mereological relation between a item and a collection.
-                subproperty_of: member_of
+                subproperty_of: member of
             object:
                 name: object
                 description: A dataset that is about cells taken from one or more tissue samples.
-                range: CellSetDataset
+                range: CknCellSetDataset
         defining_slots:
             - subject
             - predicate
@@ -1599,7 +1367,7 @@ classes:
 
     GenePartOfBiomarkerCombination:
         description: A relationship between a gene and a biomarker combination it is a member of.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
@@ -1607,18 +1375,18 @@ classes:
                     A region (or regions) that includes all of the sequence elements necessary to
                     encode a functional transcript. A gene may include regulatory regions,
                     transcribed regions and/or other functional sequence regions.
-                range: Gene
+                range: CknGene
             predicate:
                 name: predicate
                 description: A relation between a part and some whole entity.
-                subproperty_of: part_of
+                subproperty_of: part of
             object:
                 name: object
                 description: >-
                     A cell type marker gene is a gene that is selectively expressed in cells of a
                     given type and can be reliably used alone or in combination as a canonical
                     characteristic to optimally classify them.
-                range: BiomarkerCombination
+                range: CknBiomarkerCombination
         defining_slots:
             - subject
             - predicate
@@ -1628,25 +1396,25 @@ classes:
         description: >-
             A relationship between a cell set and a biomarker combination that can be used
             to uniquely identify it.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: A collection of cells that have some common property.
-                range: CellSet
+                range: CknCellSet
             predicate:
                 name: predicate
                 description: >-
                     A relation that applies between a set of markers and a cell type that can be
                     used to uniquely identify that cell type.
-                subproperty_of: has_characterizing_marker_set
+                subproperty_of: has biomarker
             object:
                 name: object
                 description: >-
                     A cell type marker gene is a gene that is selectively expressed in cells of a
                     given type and can be reliably used alone or in combination as a canonical
                     characteristic to optimally classify them.
-                range: BiomarkerCombination
+                range: CknBiomarkerCombination
         defining_slots:
             - subject
             - predicate
@@ -1656,12 +1424,12 @@ classes:
         description: >-
             A relationship between a cell set dataset and the publication that can be used
             as a reference for it.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: A dataset that is about cells taken from one or more tissue samples.
-                range: CellSetDataset
+                range: CknCellSetDataset
             predicate:
                 name: predicate
                 description: Attribution is the ascribing of an entity to an agent.
@@ -1669,7 +1437,7 @@ classes:
             object:
                 name: object
                 description: A document that is the output of a publishing process.
-                range: Publication
+                range: CknPublication
         defining_slots:
             - subject
             - predicate
@@ -1679,26 +1447,26 @@ classes:
         description: >-
             A relationship between a cell set and a cell type that comprises most or all of
             the set.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: A collection of cells that have some common property.
-                range: CellSet
+                range: CknCellSet
             predicate:
                 name: predicate
                 description: >-
                     A relation between two material entities in which more than half of the mass of
                     one is made from the other or units of the same type as the other material
                     entity.
-                subproperty_of: composed_primarily_of
+                subproperty_of: composed primarily of
             object:
                 name: object
                 description: >-
                     A material entity of anatomical origin (part of or deriving from an organism)
                     that has as its parts a maximally connected cell compartment surrounded by a
                     plasma membrane.
-                range: CellType
+                range: CknCellType
         defining_slots:
             - subject
             - predicate
@@ -1706,12 +1474,12 @@ classes:
 
     DrugEvaluatedInClinicalTrial:
         description: A relationship between a drug and some clinical trial it was tested in.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: A drug product that is bearer of a clinical drug role.
-                range: Drug
+                range: CknDrug
             predicate:
                 name: predicate
                 description: A relation between a drug and some clinical trial it was tested in.
@@ -1719,7 +1487,7 @@ classes:
             object:
                 name: object
                 description: A clinical investigation that involves an intervention.
-                range: ClinicalTrial
+                range: CknClinicalTrial
         defining_slots:
             - subject
             - predicate
@@ -1729,20 +1497,20 @@ classes:
         description: >-
             A relationship between two cell sets that are both instances of the same cell
             type that have been mapped to each other.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: A collection of cells that have some common property.
-                range: CellSet
+                range: CknCellSet
             predicate:
                 name: predicate
                 description: A mapping relation between two entities that are of the same type.
-                subproperty_of: exact_match
+                subproperty_of: exact match
             object:
                 name: object
                 description: A collection of cells that have some common property.
-                range: CellSet
+                range: CknCellSet
         defining_slots:
             - subject
             - predicate
@@ -1752,7 +1520,7 @@ classes:
         description: >-
             A relationship between a biomarker combination and a set of binary genes that
             its members are a member of.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
@@ -1760,7 +1528,7 @@ classes:
                     A cell type marker gene is a gene that is selectively expressed in cells of a
                     given type and can be reliably used alone or in combination as a canonical
                     characteristic to optimally classify them.
-                range: BiomarkerCombination
+                range: CknBiomarkerCombination
             predicate:
                 name: predicate
                 description: >-
@@ -1770,7 +1538,7 @@ classes:
             object:
                 name: object
                 description: A collection of discontinuous sequences.
-                range: BinaryGeneSet
+                range: CknBinaryGeneSet
         defining_slots:
             - subject
             - predicate
@@ -1778,22 +1546,22 @@ classes:
 
     CellSetExpressesBinaryGeneSet:
         description: A relationship between a cell set and a set of binary genes that it expresses.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: A collection of cells that have some common property.
-                range: CellSet
+                range: CknCellSet
             predicate:
                 name: predicate
                 description: >-
                     relation between some biological entity and a gene that is the input of some
                     gene expression process
-                subproperty_of: expresses
+                subproperty_of: expresses  # biolink
             object:
                 name: object
                 description: A collection of discontinuous sequences.
-                range: BinaryGeneSet
+                range: CknBinaryGeneSet
         defining_slots:
             - subject
             - predicate
@@ -1803,20 +1571,20 @@ classes:
         description: >-
             A relationship between a protein and a molecular function that it is directly
             involved in carrying out.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: >-
                     An amino acid chain that is canonically produced de novo by ribosome-mediated
                     translation of a genetically-encoded mRNA, and any derivatives thereof
-                range: Protein
+                range: CknProtein
             predicate:
                 name: predicate
                 description: >-
                     A relation between a material entity (such as a cell) and a process, in which
                     the material entity has the ability to carry out the process.
-                subproperty_of: capable_of
+                subproperty_of: capable of
             object:
                 name: object
                 description: >-
@@ -1824,7 +1592,7 @@ classes:
                     macromolecular machine, usually via direct physical interactions with other
                     molecular entities. Function in this sense denotes an action, or activity, that
                     a gene product (or a complex) performs.
-                range: MolecularFunction
+                range: CknMolecularFunction
         defining_slots:
             - subject
             - predicate
@@ -1834,20 +1602,20 @@ classes:
         description: >-
             A relationship between a protein and a biological process that it is directly
             involved in carrying out.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: >-
                     An amino acid chain that is canonically produced de novo by ribosome-mediated
                     translation of a genetically-encoded mRNA, and any derivatives thereof
-                range: Protein
+                range: CknProtein
             predicate:
                 name: predicate
                 description: >-
                     A relation between a material entity and a process in which the material entity
                     enables some subprocess that is part of the larger process.
-                subproperty_of: involved_in
+                subproperty_of: participates in
             object:
                 name: object
                 description: >-
@@ -1857,7 +1625,7 @@ classes:
                     particular set of molecular functions carried out by specific gene products (or
                     macromolecular complexes), often in a highly regulated manner and in a
                     particular temporal sequence.
-                range: BiologicalProcess
+                range: CknBiologicalProcess
         defining_slots:
             - subject
             - predicate
@@ -1867,20 +1635,20 @@ classes:
         description: >-
             A relationship between a protein and a cellular component that is a constituent
             part of it.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: >-
                     An amino acid chain that is canonically produced de novo by ribosome-mediated
                     translation of a genetically-encoded mRNA, and any derivatives thereof
-                range: Protein
+                range: CknProtein
             predicate:
                 name: predicate
                 description: >-
                     A relation between two independent continuants, the target and the location, in
                     which the target is entirely within the location
-                subproperty_of: located_in
+                subproperty_of: located in
             object:
                 name: object
                 description: >-
@@ -1891,7 +1659,7 @@ classes:
                     membrane-enclosed compartments (e.g., mitochondrion); (2)virion components,
                     where viral proteins act, and (3) the stable macromolecular complexes of which
                     gene product are parts (e.g., the clathrin complex).
-                range: CellularComponent
+                range: CknCellularComponent
         defining_slots:
             - subject
             - predicate
@@ -1900,22 +1668,22 @@ classes:
     CellSetDatasetIsAboutAnatomicalStructure:
         description: >-
             A relationship between a cell set dataset and an anatomical structure that some of its data pertain to.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: A dataset that is about cells taken from one or more tissue samples.
-                range: CellSetDataset
+                range: CknCellSetDataset
             predicate:
                 name: predicate
                 description: A primitive relation that relates an information artifact to an entity.
-                subproperty_of: is_about
+                subproperty_of: mentions
             object:
                 name: object
                 description: >-
                     Material anatomical entity that is a single connected structure with inherent 3D
                     shape generated by coordinated expression of the organism's own genome.
-                range: AnatomicalStructure
+                range: CknAnatomicalStructure
         defining_slots:
             - subject
             - predicate
@@ -1923,25 +1691,25 @@ classes:
 
     CellSetExpressesGene:
         description: A relationship between a cell set and a gene that it expresses.
-        is_a: Association
+        is_a: CknAssociation
         slot_usage:
             subject:
                 name: subject
                 description: A collection of cells that have some common property.
-                range: CellSet
+                range: CknCellSet
             predicate:
                 name: predicate
                 description: >-
                     relation between some biological entity and a gene that is the input of some
                     gene expression process
-                subproperty_of: expresses
+                subproperty_of: expresses  # biolink
             object:
                 name: object
                 description: >-
                     A region (or regions) that includes all of the sequence elements necessary to
                     encode a functional transcript. A gene may include regulatory regions,
                     transcribed regions and/or other functional sequence regions.
-                range: Gene
+                range: CknGene
         defining_slots:
             - subject
             - predicate
