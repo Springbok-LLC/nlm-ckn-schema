@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "ckn-schema"
 dynamic = ["version"]
 description = "LinkML data model for cell phenotypes and biological entities."
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = "MIT"
 dependencies = [
     "linkml-runtime>=1.9,<2",
@@ -15,6 +15,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "linkml>=1.8,<2",
+    "biolink-model>=4.4,<5",
     "jsonschema",
     "rdflib",
 ]

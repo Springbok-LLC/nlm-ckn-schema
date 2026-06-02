@@ -1,8 +1,15 @@
 # cell-kn-schema
 
-A [LinkML](https://linkml.io/) data model for cell phenotypes and biological entities.
+A [LinkML](https://linkml.io/) data model for cell phenotypes and biological entities,
+structured as a [Biolink Model](https://biolink.github.io/biolink-model/) extension: it
+imports `biolink-model`, its node classes (`Ckn*`) are subclasses of Biolink categories,
+and its association predicates reference Biolink predicates.
 
-The schema is defined in [`ckn-schema.yaml`](ckn-schema.yaml). Pydantic models, SHACL shapes, and JSON Schema are generated from it at build time.
+The schema is defined in [`ckn-schema.yaml`](ckn-schema.yaml). The build first inlines
+`biolink-model` into a single self-contained schema (`build/ckn_merged.yaml`, via
+[`merge_schema.py`](merge_schema.py)), then generates Pydantic models, SHACL shapes, and
+JSON Schema from it. The merged schema (not the import-bearing source) is what ships in the
+package, so consumers can load it without `biolink-model` or an importmap.
 
 ## Prerequisites
 
