@@ -29,7 +29,6 @@ prefixes:
     foaf: http://xmlns.com/foaf/0.1/
     RO: http://purl.obolibrary.org/obo/RO_
     STATO: http://purl.obolibrary.org/obo/STATO_
-    prov: http://www.w3.org/ns/prov#
 
 default_prefix: nlm-ckn
 default_range: string
@@ -578,9 +577,13 @@ slots:
             - RO:0020325
 
     was_attributed_to:
-        description: Attribution is the ascribing of an entity to an agent.
-        exact_mappings:
-            - prov:wasAttributedTo
+        description: >-
+            A relationship between an entity and a publication that serves as its
+            reference.
+        # Intentionally unmapped: prov:wasAttributedTo has range prov:Agent, but
+        # here the object is a publication (a prov:Entity), so the two are not
+        # equivalent. No RO/Biolink predicate fits a dataset->reference-publication
+        # relation, so this stays a local extension term.
 
 classes:
 
@@ -1432,7 +1435,9 @@ classes:
                 range: CknCellSetDataset
             predicate:
                 name: predicate
-                description: Attribution is the ascribing of an entity to an agent.
+                description: >-
+                    A relationship between an entity and a publication that serves as its
+                    reference.
                 subproperty_of: was_attributed_to
             object:
                 name: object
