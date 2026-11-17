@@ -34,6 +34,7 @@ prefixes:
     STATO: https://purl.obolibrary.org/obo/STATO_
     PROV: http://www.w3.org/ns/prov#
     dcterms: http://purl.org/dc/terms/
+    biolink: https://w3id.org/biolink/vocab/
 
 default_prefix: nlm-ckn
 
@@ -862,7 +863,7 @@ slots:
     is_associated_with:
         description: A non-causal relationship between two entities that has been established through statistical analyses.
         exact_mappings:
-            - RO:0004029
+            - biolink:associated_with
 
     described_in:
         description: A relation between a resource and a publication it was derived in whole or in part from.
